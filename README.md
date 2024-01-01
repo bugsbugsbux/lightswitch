@@ -1,3 +1,5 @@
+**USE AT YOUR OWN RISK**
+
 # LightSwitch
 
 A neovim plugin to easily switch between the light and dark variants of
