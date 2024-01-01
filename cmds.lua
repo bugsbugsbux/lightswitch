@@ -1,4 +1,4 @@
----@alias Cmd {fargs:string[],bang:boolean,any}
+---@alias Cmd {fargs:string[],bang:boolean}
 
 local share = require('lightswitch.shared')
 local core = require('lightswitch.core')
