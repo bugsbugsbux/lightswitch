@@ -12,7 +12,7 @@ end
 ---@return string[]
 function M.get_switch_themes(opts)
     opts = opts or {all_groups = false, brightness = nil}
-    local shared = require('user.lightswitch.shared')
+    local shared = require('lightswitch.shared')
     local theme = shared.state.theme
     if opts.brightness then
         assert(opts.brightness == 'dark' or opts.brightness == 'light')
@@ -35,7 +35,7 @@ end
 ---@return nil
 local function set_theme(theme, brightness)
     assert(type(theme) == 'string' and brightness == 'dark' or brightness == 'light')
-    local shared = require('user.lightswitch.shared')
+    local shared = require('lightswitch.shared')
     local group = shared.themes[theme]
     if not group then
         vim.notify('Colorscheme not handled; update your config!')
@@ -58,7 +58,7 @@ end
 ---@param brightness 'light'|'dark'
 local function switch_brightness_to(brightness)
     assert(brightness == 'dark' or brightness == 'light')
-    local shared = require('user.lightswitch.shared')
+    local shared = require('lightswitch.shared')
     theme = shared.state.theme
     if not shared.themes[theme] then
         vim.notify('Colorscheme not handled; update your config!')
@@ -72,7 +72,7 @@ end
 ---without theme set selected light variant
 ---with theme allow light variants of current group
 function M.cur_light(theme)
-    local shared = require('user.lightswitch.shared')
+    local shared = require('lightswitch.shared')
     if not theme then return switch_brightness_to('light') end
     local valid = M.get_switch_themes({all_groups=false, brightness='light'})
     if not vim.tbl_contains(valid, theme) then
@@ -85,7 +85,7 @@ end
 ---without theme set selected dark variant
 ---with theme allow dark variants of current group
 function M.cur_dark(theme)
-    local shared = require('user.lightswitch.shared')
+    local shared = require('lightswitch.shared')
     if not theme then return switch_brightness_to('dark') end
     local valid = M.get_switch_themes({all_groups=false, brightness='dark'})
     if not vim.tbl_contains(valid, theme) then
@@ -98,7 +98,7 @@ end
 ---without theme set selected light variant
 ---with theme allow light variants of any group
 function M.any_light(theme)
-    local shared = require('user.lightswitch.shared')
+    local shared = require('lightswitch.shared')
     if not theme then return switch_brightness_to('light') end
     local valid = M.get_switch_themes({all_groups=true, brightness='light'})
     if not vim.tbl_contains(valid, theme) then
@@ -111,7 +111,7 @@ end
 ---without theme set selected dark variant
 ---with theme allow dark variants of any group
 function M.any_dark(theme)
-    local shared = require('user.lightswitch.shared')
+    local shared = require('lightswitch.shared')
     if not theme then return switch_brightness_to('dark') end
     local valid = M.get_switch_themes({all_groups=true, brightness='dark'})
     if not vim.tbl_contains(valid, theme) then
@@ -124,7 +124,7 @@ end
 ---without theme set other selected
 ---with theme allow other variants of current group
 function M.cur_toggle(theme)
-    local shared = require('user.lightswitch.shared')
+    local shared = require('lightswitch.shared')
     local new = theme or shared.state.theme
     ---@diagnostic disable-next-line:param-type-mismatch
     next_brightness = other(shared.get_brightness(new, shared.state.brightness))
@@ -142,7 +142,7 @@ end
 ---without theme set other selected
 ---with theme allow other variants of any group
 function M.any_toggle(theme)
-    local shared = require('user.lightswitch.shared')
+    local shared = require('lightswitch.shared')
     local new = theme or shared.state.theme
     ---@diagnostic disable-next-line:param-type-mismatch
     next_brightness = other(shared.get_brightness(new, shared.state.brightness))

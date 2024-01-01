@@ -1,6 +1,6 @@
 local M = {
     ---@type table<string, Themegroup>
-    themes = require('user.lightswitch.builtin'),
+    themes = require('lightswitch.builtin'),
     ---@type {theme:string,brightness:'dark'|'light'}
     state = nil,
 }
@@ -89,7 +89,7 @@ function M.get_brightness(theme, dual_fallback)
     if dual_fallback then
         assert(dual_fallback == 'dark' or dual_fallback == 'light')
     end
-    local shared = require('user.lightswitch.shared')
+    local shared = require('lightswitch.shared')
     if not shared.themes[theme] then -- is unknown to this plugin theme:
         if dual_fallback then
             -- fallback if requested is always vim.go.bg for unknown themes

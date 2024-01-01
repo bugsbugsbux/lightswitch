@@ -1,12 +1,12 @@
 local M = {
     augroup = vim.api.nvim_create_augroup(
-        require('user.lightswitch.shared').PLUG,
+        require('lightswitch.shared').PLUG,
         { clear = true }
     ),
 }
 
 function M.activate()
-    require('user.lightswitch.shared').state = {
+    require('lightswitch.shared').state = {
         theme = vim.g.colors_name or 'default',
         brightness = vim.go.background,
     }
@@ -16,7 +16,7 @@ function M.activate()
         pattern = { '*' },
         desc = "Update brightness state of previous theme if it's an unknown theme",
         callback = function(_)
-            local shared = require('user.lightswitch.shared')
+            local shared = require('lightswitch.shared')
             if not shared.themes[shared.state.theme] then
                 shared.state.brightness = vim.go.background
             end
@@ -29,7 +29,7 @@ function M.activate()
         desc = "Remember prev theme as its brightness' selection and update state",
         callback = function(event)
             local new = event.match
-            local shared = require('user.lightswitch.shared')
+            local shared = require('lightswitch.shared')
             local prev = shared.state.theme
             if shared.themes[prev] then
                 shared.themes[prev].selected[shared.state.brightness] = prev

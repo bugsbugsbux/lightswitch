@@ -1,8 +1,8 @@
 ---@alias Cmd {fargs:string[],bang:boolean,any}
 
-local share = require('user.lightswitch.shared')
-local core = require('user.lightswitch.core')
-local complete = require('user.lightswitch.complete')
+local share = require('lightswitch.shared')
+local core = require('lightswitch.core')
+local complete = require('lightswitch.complete')
 
 local M = {}
 
@@ -26,8 +26,8 @@ function M.setup_user_cmds()
     vim.api.nvim_create_user_command(
         cmd_names.disable,
         function(_)
-            require('user.lightswitch.auto').deactivate()
-            require('user.lightswitch.cmds').remove_user_cmds()
+            require('lightswitch.auto').deactivate()
+            require('lightswitch.cmds').remove_user_cmds()
         end,
         { bang = false, bar = true }
     )
