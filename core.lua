@@ -59,7 +59,7 @@ end
 local function switch_brightness_to(brightness)
     assert(brightness == 'dark' or brightness == 'light')
     local shared = require('lightswitch.shared')
-    theme = shared.state.theme
+    local theme = shared.state.theme
     if not shared.themes[theme] then
         vim.notify('Colorscheme not handled; update your config!')
         return
@@ -127,7 +127,7 @@ function M.cur_toggle(theme)
     local shared = require('lightswitch.shared')
     local new = theme or shared.state.theme
     ---@diagnostic disable-next-line:param-type-mismatch
-    next_brightness = other(shared.get_brightness(new, shared.state.brightness))
+    local next_brightness = other(shared.get_brightness(new, shared.state.brightness))
     if not theme then
         return switch_brightness_to(next_brightness)
     end
@@ -145,7 +145,7 @@ function M.any_toggle(theme)
     local shared = require('lightswitch.shared')
     local new = theme or shared.state.theme
     ---@diagnostic disable-next-line:param-type-mismatch
-    next_brightness = other(shared.get_brightness(new, shared.state.brightness))
+    local next_brightness = other(shared.get_brightness(new, shared.state.brightness))
     if not theme then
         return switch_brightness_to(next_brightness)
     end
