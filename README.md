@@ -37,7 +37,7 @@ custom switch function:
 ```lua
 -- A theme that uses the same name for light and dark variant or that
 -- uses an unusual way of changing between dark and light:
-local vscode_group = { -- https://github.com/Mofiqul/vscode.nvim
+local vscode_group = {
     variants = { dark = {'vscode'}, light = {'vscode'} },
     selected = { dark = 'vscode', light = 'vscode' },
     custom_switch = {
@@ -63,6 +63,8 @@ local vscode_group = { -- https://github.com/Mofiqul/vscode.nvim
 }
 ```
 
+## Commands
+
 ```
 variant   | of current             | of any
 ----------|------------------------|--------------------------
@@ -73,3 +75,72 @@ opposite¹ | `LightsToggle name`²   | `LightSwitchToggle name`²
 ¹ ...of currently active theme's brightness (= `&bg` for unknown themes)
 ² Missing name defaults to current theme's last used variant (=selected)
 ```
+
+## Tips
+
+- To avoid having to add/remove colorscheme names and groups in your
+  config every time you un/install a theme, you might want to register
+  them conditionally like so:
+
+  ```lua
+  -- YOURCONFIG/THEMES.lua
+  return {}
+  ```
+
+  ```lua
+  -- YOURCONFIG/sometheme_config.lua
+  -- ...
+  local themes = require('YOURCONFIG.THEMES')
+  local group = {
+      selected = { light = 'name1', dark = 'name2' },
+      variants = { light ={'name1'},dark ={'name2'}},
+  }
+  themes['name1'] = group
+  themes['name2'] = group
+  ```
+
+  Now, only if the theme's config is loaded, it is added to the table in
+  YOURCONFIG/THEMES.lua . Call setup() with this table *after* all
+  available themes were added:
+
+  ```lua
+  require('lightswitch').setup(require('YOURCONFIG.THEMES'))
+  ```
+
+- Lazy loading plugins, or using the conditional registration trick from
+  above requires some caution; here exemplified with lazy.nvim :
+  ```lua
+  require('lazy').setup{
+    { 'foo/sometheme',
+      config = function() require('YOURCONFIG.sometheme_config') end,
+      -- if you conditionally populate the table of themenames/-groups
+      -- to register with LightSwitch:
+      lazy=false              -- MAKES SURE THE CONFIG RUNS IMMEDIATELY
+    },
+    { 'herrvonvoid/lightswitch',
+      config = function()
+        require('lightswitch').setup(require('YOURCONFIG.THEMES'))
+      end,
+      -- if you did not use hardcoded themenames/-groups above:
+      event = 'CmdlineEnter', -- ENSURES CONFIG RUNS AFTER THEME-CONFIGS
+    }
+  }
+  ```
+
+## Troubleshooting
+
+- **Theme not found error / Shows uninstalled themes**:
+  + Did you spell the theme name correctly (check capitalization)?
+  + Is the theme really called this way?
+  + Did you accidentally register a theme with LightSwitch which is not
+    installed? Consider registering themes, as described above, from
+    their config (which wont be loaded if the theme is not installed)
+    with some table which is imported by the LightSwitch config.
+
+- **Installed themes don't show up**:
+  + Did you register them?
+  + As the correct brightness?
+  + If you conditionally populate the table passed to `setup()`: Were
+    all themes added to the table *before* `setup()` was called?
+  + Are you using the correct command ("Lights\<On|Off|Toggle>" only
+    show themes from the same group)?
