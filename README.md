@@ -122,7 +122,7 @@ opposite¹ | `LightsToggle name`²   | `LightSwitchToggle name`²
         require('lightswitch').setup(require('YOURCONFIG.THEMES'))
       end,
       -- if you did not use hardcoded themenames/-groups above:
-      event = 'CmdlineEnter', -- ENSURES CONFIG RUNS AFTER THEME-CONFIGS
+      event= 'User LazyDone', -- ENSURES CONFIG RUNS AFTER THEME-CONFIGS
     }
   }
   ```
@@ -144,3 +144,9 @@ opposite¹ | `LightsToggle name`²   | `LightSwitchToggle name`²
     all themes added to the table *before* `setup()` was called?
   + Are you using the correct command ("Lights\<On|Off|Toggle>" only
     show themes from the same group)?
+
+- **Does not switch to the correct previous variant**:
+  + Were groups and theme names registered correctly?
+  + Colorscheme changes before LightSwitch was loaded are not known to
+    it; thus it should be loaded as soon as possible (for example with
+    lazy.nvim's `event="User LazyDone"`).
