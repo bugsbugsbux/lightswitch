@@ -1,4 +1,10 @@
 ---@type Themegroup
+local default = {
+    selected = { dark = 'default', light = 'default' },
+    variants = { dark = {'default'}, light = {'default'} },
+}
+
+---@type Themegroup
 local lunaperche = {
     selected = { dark = 'lunaperche', light = 'lunaperche' },
     variants = { dark = {'lunaperche'}, light = {'lunaperche'} },
@@ -15,7 +21,6 @@ local builtin = {
     selected = { dark = 'industry', light = 'peachpuff' },
     variants = {
         dark = {
-            'default',
             'blue',
             'darkblue',
             'desert',
@@ -41,10 +46,10 @@ local builtin = {
 }
 
 return {
+    default = default,
     lunaperche = lunaperche,
     quiet = quiet,
     ---
-    default = builtin,
     blue = builtin,
     darkblue = builtin,
     delek = builtin,
