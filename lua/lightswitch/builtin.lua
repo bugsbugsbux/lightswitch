@@ -17,6 +17,18 @@ local quiet = {
 }
 
 ---@type Themegroup
+local builtin_vim = {
+    selected = { dark = 'vim', light = 'vim' },
+    variants = { dark = {'vim'}, light = {'vim'} },
+}
+
+---@type Themegroup
+local wildcharm = {
+    selected = { dark = 'wildcharm', light = 'wildcharm' },
+    variants = { dark = {'wildcharm'}, light = {'wildcharm'} },
+}
+
+---@type Themegroup
 local builtin = {
     selected = { dark = 'industry', light = 'peachpuff' },
     variants = {
@@ -34,6 +46,7 @@ local builtin = {
             'ron',
             'slate',
             'torte',
+            'zaibatsu',
         },
         light = {
             'delek',
@@ -49,6 +62,8 @@ return {
     default = default,
     lunaperche = lunaperche,
     quiet = quiet,
+    vim = builtin_vim,
+    wildcharm = wildcharm,
     ---
     blue = builtin,
     darkblue = builtin,
@@ -67,5 +82,6 @@ return {
     shine = builtin,
     slate = builtin,
     torte = builtin,
+    zaibatsu = builtin,
     zellner = builtin,
 }
