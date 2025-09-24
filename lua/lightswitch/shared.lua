@@ -22,9 +22,9 @@ local function validate_themes(themes)
         assert(type(name) == 'string')
         assert(type(group) == 'table')
         assert(type(group.variants) == 'table')
-        assert(vim.tbl_islist(group.variants.dark))
+        assert(vim.islist(group.variants.dark))
         for _, e in ipairs(group.variants.dark) do assert(type(e) == 'string') end
-        assert(vim.tbl_islist(group.variants.light))
+        assert(vim.islist(group.variants.light))
         for _, e in ipairs(group.variants.light) do assert(type(e) == 'string') end
         assert((#group.variants.light + #group.variants.dark) > 1)
         assert(
